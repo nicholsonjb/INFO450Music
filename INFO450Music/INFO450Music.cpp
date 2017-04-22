@@ -30,9 +30,10 @@ class musicLinkedList
 	music *tail;
 public:
 	musicLinkedList();
+	void showMusicList(); //Transverse a list
 	void skipMusicNode(); //Skip a node
 	void removeMusicNode(); //Delete a node
-	void showMusicList(); //Transverse a list
+	
 
 };
 
