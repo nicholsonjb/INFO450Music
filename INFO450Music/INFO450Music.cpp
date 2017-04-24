@@ -93,8 +93,27 @@ void music::showSong()
 //get user input
 void linkedList::getUserInput() 
 {
+	linkedList my;
+	char choice;
 
+	do 
+	{
+		cout << "Press P to play" << endl;
+		cin >> choice;
+		switch (choice) 
+		{
+		case 'P':
+		case 'p':
 
+			break;
+
+		case 'q':
+		case 'Q':
+			break;
+
+			default: cout << " Invaild entry! " << endl;
+		}
+	} while (choice != 'q' && choice != 'Q');
 
 
 }
@@ -188,10 +207,9 @@ int main()
 
 		return 0;
 	}
-
+	my.getUserInput();
 	
-	my.showList();
-	return 0;
+	
 
 
     return 0;
