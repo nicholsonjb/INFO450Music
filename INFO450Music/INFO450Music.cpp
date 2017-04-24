@@ -14,28 +14,93 @@ const int ARRAYSIZE = 100;
 
 class music 
 {
-	string artistName;
 	string songName;
+	string songArtist;
 	music *next;
 
 public:
-	music(string artist, string song);
-	friend class musickLinkedList;
+	music(string song, string art);
+	friend class linkedList;
 };
 
+music::music(string song, string art)
+{
+	songName = song;
+	songArtist = art;
+	next = NULL;
+}
 
-class musicLinkedList
+class linkedList
 {
 	music *head;
 	music *tail;
 public:
-	musicLinkedList();
-	void showMusicList(); //Transverse a list
+	linkedList();
+	void showList(); //Transverse a list
+	int readList(string filename);
 	void skipMusicNode(); //Skip a node
 	void removeMusicNode(); //Delete a node
 	
 
 };
+
+linkedList::linkedList()
+{
+	head = NULL;
+	tail = NULL;
+}
+
+
+void linkedList::showList()
+{
+		music *ptr;
+		 ptr = head;
+		 cout << "**** My Music List **** " << endl;
+		 if (ptr == NULL)
+		 { 
+			 cout << "list is empty" << endl;
+		return;
+		 }
+
+		 cout << "The song is " << head->songName << " by " << tail->songArtist << endl;
+	while (ptr != NULL)
+	{
+		cout << "Playing: " << ptr->songName << endl;
+		ptr = ptr->next;
+	}
+
+}
+
+
+int linkedList::readList(string filename) 
+{
+	string isong, iname;
+	ifstream infile(filename, ios::in);
+	if (!infile)
+	{
+		cout << "File could not be opened for reading" << endl;
+		return READERROR;
+	}
+
+
+	while (!infile.eof())
+	{
+
+		getline(infile, iname, ',');
+		if (!iname.empty())
+		{
+			getline(infile, isong);
+
+			music *newnode = new music (isong, iname);
+			/*AddNodeToEnd(newnode);*/
+
+			/*numrecords++;*/
+		}
+	}
+
+	infile.close();
+	return 0;
+}
 
 int main()
 {
