@@ -12,6 +12,8 @@ const int READERROR = 100;
 const int WRITEERROR = 200;
 const int ARRAYSIZE = 100;
 
+
+//music class
 class music 
 {
 	string songName;
@@ -24,20 +26,8 @@ public:
 	void showSong();
 	friend class linkedList;
 };
-music::music() 
-{
-	songName = "";
-	songArtist = "";
-	next = NULL;
-}
 
-music::music(string song, string art)
-{
-	songName = song;
-	songArtist = art;
-	next = NULL;
-}
-
+//class linked list
 class linkedList
 {
 	int numrecords;
@@ -45,15 +35,34 @@ class linkedList
 	music *tail;
 public:
 	linkedList();
+	~linkedList();
 	void showList(); //Transverse a list
 	int readList(string filename);
 	void addNodeToEnd(music* newnode);
+	void getUserInput();
 	void skipMusicNode(); //Skip a node
 	void removeMusicNode(); //Delete a node
-	
+
 
 };
 
+//default constructor - initalized empty
+music::music() 
+{
+	songName = "";
+	songArtist = "";
+	next = NULL;
+}
+
+//overload constructor initlized w/values
+music::music(string song, string art)
+{
+	songName = song;
+	songArtist = art;
+	next = NULL;
+}
+
+//Linked List constructor 
 linkedList::linkedList()
 {
 	numrecords = 0;
@@ -61,12 +70,38 @@ linkedList::linkedList()
 	tail = NULL;
 }
 
+
+//deconstructor - free allocated memory
+linkedList::~linkedList()
+{
+	music* ptr = head;
+	while (ptr != NULL)
+	{
+		head = ptr->next;
+		delete ptr;
+		ptr = head;
+	}
+}
+
+
+//Show song to console that is playing
 void music::showSong()
 {
 	cout << "Playing:"  << songName << endl;
 }
 
+//get user input
+void linkedList::getUserInput() 
+{
 
+
+
+
+}
+
+
+
+//Traverse/Show/PlaySong to console
 void linkedList::showList()
 {
 	music* ptr = head;
