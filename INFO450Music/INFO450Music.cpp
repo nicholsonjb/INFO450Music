@@ -93,9 +93,9 @@ void linkedList::showList()
 {
 	music* ptr = head;
 	music* prev = NULL;
-	
+
 	string choice;
-	
+
 	int amount;
 
 
@@ -106,55 +106,66 @@ void linkedList::showList()
 	}
 	while (ptr != NULL)
 	{
-		cout << "The song is " << ptr->songName << " by " << ptr->songArtist << "[P]lay, [S]kip,[D]elete, or [Q]uit?" << endl;
-		getline(cin, choice);
-		//play song
-		if (choice == "p" || choice == "P")
+		do
 		{
-			cout << "Playing: ";
-			ptr->showSong();
-			ptr = ptr->next;
-		}
-		//skip song
-		if (choice == "s" || choice == "S")
-		{
-			cout << "How many?" << endl;
-			cin >> amount;
-			cin.clear();
-
-			for (int i = 1; ptr && i <= amount; i++)
+			cout << "The song is " << ptr->songName << " by " << ptr->songArtist << " [P]lay, [S]kip,[D]elete, or [Q]uit? ";
+			getline(cin, choice);
+			//play song
+			
+			if (choice == "p" || choice == "P")
 			{
-				cout << "Skipping: ";
+				cout << "---------\n";
+				cout << "Playing: ";
 				ptr->showSong();
-				prev = ptr;
+				cout << "---------\n";
 				ptr = ptr->next;
 			}
-		}
-
-		//delete song
-		if(choice =="D" || choice =="d")
-		{
-			
-			if(ptr->next && (ptr->next)->songName == choice)
+			//skip song
+			if (choice == "s" || choice == "S")
 			{
-				if (tail == ptr->next)
-					tail = ptr;
-				music *tbd = ptr->next;
-				ptr->next = (ptr->next)->next;
+				cout << "How many?" << endl;
+				cin >> amount;
+				cin.clear();
+				cin.ignore();
+				cout << "---------\n";
+				for (int i = 1; ptr && i <= amount; i++)
+				{
+					cout << "Skipping: ";
+					ptr->showSong();
+
+					prev = ptr;
+					ptr = ptr->next;
+				}
+				cout << "---------\n";
+			}
+
+			//delete song
+			if (choice == "D" || choice == "d")
+			{
+				if (ptr->next && (ptr->next)->songName == choice)
+				{
+					if (tail == ptr->next)
+						tail = ptr;
+
+					music* tbd = ptr->next;
+					ptr->next = (ptr->next)->next;
+					delete tbd;
+					return;
+				}
+				cout << "---------\n";
 				cout << "Deleting: ";
 				ptr->showSong();
-				delete tbd;
-				return;
+				cout << "---------\n";
+				ptr = ptr->next;
 			}
-			ptr = ptr->next;
+			//Quit
+			if (choice == "Q" || choice == "q")
+			{
+				cout << "Thanks for listening! " << endl;
+				break;
+			}
 		}
-		//Quit
-		if(choice =="q" || choice == "Q")
-		{
-			cout << "Thanks for listening " << endl;
-			break;
-		}
-
+		while (choice != "q" && choice != "q");
 	}
 }
 
