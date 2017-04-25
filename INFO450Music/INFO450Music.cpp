@@ -123,10 +123,10 @@ void linkedList::showList()
 				 cout << "How many?" << endl;
 				 cin >> amount;
 				
-				 for (int i = 1; ptr && i <= amount; i++)
+				 for (int i = 1;  ptr && i <= amount; i++)
 				 {
 					 cout << "Skipping: ";
-					 ptr->showSong;
+					 ptr->showSong();
 					 prev = ptr;
 					 ptr = ptr->next;
 				 }
