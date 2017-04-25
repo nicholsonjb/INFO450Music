@@ -86,7 +86,7 @@ linkedList::~linkedList()
 //Show song to console that is playing
 void music::showSong()
 {
-	cout << "Playing: "  << songName << endl;
+	cout  << songName << endl;
 
 }
 
@@ -96,8 +96,9 @@ void music::showSong()
 void linkedList::showList()
 {
 	music* ptr = head;
+	music *prev = NULL;
 	string choice;
-	string amount;
+	int amount;
 	
 
 		 cout << "**** My Music List **** " << endl;
@@ -112,6 +113,7 @@ void linkedList::showList()
 			 //play song
 			 if (choice == "p" || choice == "P")
 			 {
+				 cout << "Playing: ";
 				 ptr->showSong();
 				 ptr = ptr->next;
 			 }
@@ -119,7 +121,15 @@ void linkedList::showList()
 			 if (choice == "s" || choice == "S")
 			 {
 				 cout << "How many?" << endl;
-				 getline(cin, amount);
+				 cin >> amount;
+				
+				 for (int i = 1; ptr && i <= amount; i++)
+				 {
+					 cout << "Skipping: ";
+					 ptr->showSong;
+					 prev = ptr;
+					 ptr = ptr->next;
+				 }
 				 
 				
 			 }
