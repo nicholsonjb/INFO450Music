@@ -14,11 +14,11 @@ const int ARRAYSIZE = 100;
 
 
 //music class
-class music 
+class music
 {
 	string songName;
 	string songArtist;
-	music *next;
+	music* next;
 
 public:
 	music();
@@ -31,8 +31,8 @@ public:
 class linkedList
 {
 	int numrecords;
-	music *head;
-	music *tail;
+	music* head;
+	music* tail;
 public:
 	linkedList();
 	~linkedList();
@@ -40,13 +40,11 @@ public:
 	int readList(string filename);
 	void addNodeToEnd(music* newnode);
 	void skipMusic(); //Skip a node
-	void removeMusicNode(); //Delete a node
-
-
+	int removeMusic(int i); //Delete a node
 };
 
 //default constructor - initalized empty
-music::music() 
+music::music()
 {
 	songName = "";
 	songArtist = "";
@@ -86,56 +84,61 @@ linkedList::~linkedList()
 //Show song to console that is playing
 void music::showSong()
 {
-	cout  << songName << endl;
-
+	cout << songName << endl;
 }
-
 
 
 //Traverse/Show/PlaySong to console
 void linkedList::showList()
 {
 	music* ptr = head;
-	music *prev = NULL;
-	string choice;
-	int amount;
+	music* prev = NULL;
 	
+	string choice;
+	
+	int amount;
 
-		 cout << "**** My Music List **** " << endl;
-		 if (head == NULL)
-		 { 
+
+	cout << "**** My Music List **** " << endl;
+	if (head == NULL)
+	{
 		return;
-		 }
-		 while (ptr != NULL)
-		 {
-			 cout << "The song is " << ptr->songName << " by " << ptr->songArtist << "[P]lay, [S]kip,[D]elete, or [Q]uit?" << endl;
-			 getline(cin, choice);
-			 //play song
-			 if (choice == "p" || choice == "P")
-			 {
-				 cout << "Playing: ";
-				 ptr->showSong();
-				 ptr = ptr->next;
-			 }
-			 //skip song
-			 if (choice == "s" || choice == "S")
-			 {
-				 cout << "How many?" << endl;
-				 cin >> amount;
-				
-				 for (int i = 1;  ptr && i <= amount; i++)
-				 {
-					 cout << "Skipping: ";
-					 ptr->showSong();
-					 prev = ptr;
-					 ptr = ptr->next;
-				 }
-				 
-				
-			 }
 	}
+	while (ptr != NULL)
+	{
+		cout << "The song is " << ptr->songName << " by " << ptr->songArtist << "[P]lay, [S]kip,[D]elete, or [Q]uit?" << endl;
+		getline(cin, choice);
+		//play song
+		if (choice == "p" || choice == "P")
+		{
+			cout << "Playing: ";
+			ptr->showSong();
+			ptr = ptr->next;
+		}
+		//skip song
+		if (choice == "s" || choice == "S")
+		{
+			cout << "How many?" << endl;
+			cin >> amount;
 
+			for (int i = 1; ptr && i <= amount; i++)
+			{
+				cout << "Skipping: ";
+				ptr->showSong();
+				prev = ptr;
+				ptr = ptr->next;
+			}
+		}
+		//deletes song
+		if (choice == "D" || choice == "d")
+		{
+
+
+		}
+		
+	}
 }
+
 void linkedList::addNodeToEnd(music* newnode)
 {
 	if (head == NULL)
@@ -151,7 +154,7 @@ void linkedList::addNodeToEnd(music* newnode)
 }
 
 
-int linkedList::readList(string filename) 
+int linkedList::readList(string filename)
 {
 	string isong, iname;
 	ifstream infile(filename, ios::in);
@@ -164,13 +167,12 @@ int linkedList::readList(string filename)
 
 	while (!infile.eof())
 	{
-
 		getline(infile, iname, '|');
 		if (!iname.empty())
 		{
 			getline(infile, isong);
 
-			music *newnode = new music (isong, iname);
+			music* newnode = new music(isong, iname);
 			addNodeToEnd(newnode);
 
 			numrecords++;
@@ -208,10 +210,7 @@ int main()
 		return 0;
 	}
 	my.showList();
-	
-	
 
 
-    return 0;
+	return 0;
 }
-
