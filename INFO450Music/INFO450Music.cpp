@@ -120,6 +120,7 @@ void linkedList::showList()
 		{
 			cout << "How many?" << endl;
 			cin >> amount;
+			cin.clear();
 
 			for (int i = 1; ptr && i <= amount; i++)
 			{
@@ -129,13 +130,31 @@ void linkedList::showList()
 				ptr = ptr->next;
 			}
 		}
-		//deletes song
-		if (choice == "D" || choice == "d")
+
+		//delete song
+		if(choice =="D" || choice =="d")
 		{
-
-
+			
+			if(ptr->next && (ptr->next)->songName == choice)
+			{
+				if (tail == ptr->next)
+					tail = ptr;
+				music *tbd = ptr->next;
+				ptr->next = (ptr->next)->next;
+				cout << "Deleting: ";
+				ptr->showSong();
+				delete tbd;
+				return;
+			}
+			ptr = ptr->next;
 		}
-		
+		//Quit
+		if(choice =="q" || choice == "Q")
+		{
+			cout << "Thanks for listening " << endl;
+			break;
+		}
+
 	}
 }
 
