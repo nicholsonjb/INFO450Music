@@ -39,8 +39,7 @@ public:
 	void showList(); //Transverse a list
 	int readList(string filename);
 	void addNodeToEnd(music* newnode);
-	void getUserInput();
-	void skipMusicNode(); //Skip a node
+	void skipMusic(); //Skip a node
 	void removeMusicNode(); //Delete a node
 
 
@@ -87,34 +86,7 @@ linkedList::~linkedList()
 //Show song to console that is playing
 void music::showSong()
 {
-	cout << "Playing:"  << songName << endl;
-}
-
-//get user input
-void linkedList::getUserInput() 
-{
-	linkedList my;
-	char choice;
-
-	do 
-	{
-		cout << "Press P to play" << endl;
-		cin >> choice;
-		switch (choice) 
-		{
-		case 'P':
-		case 'p':
-
-			break;
-
-		case 'q':
-		case 'Q':
-			break;
-
-			default: cout << " Invaild entry! " << endl;
-		}
-	} while (choice != 'q' && choice != 'Q');
-
+	cout << "Playing: "  << songName << endl;
 
 }
 
@@ -124,15 +96,33 @@ void linkedList::getUserInput()
 void linkedList::showList()
 {
 	music* ptr = head;
+	string choice;
+	string amount;
+	
+
 		 cout << "**** My Music List **** " << endl;
 		 if (head == NULL)
 		 { 
 		return;
 		 }
-	while (ptr != NULL)
-	{
-		ptr->showSong();
-		ptr = ptr->next;
+		 while (ptr != NULL)
+		 {
+			 cout << "The song is " << ptr->songName << " by " << ptr->songArtist << "[P]lay, [S]kip,[D]elete, or [Q]uit?" << endl;
+			 getline(cin, choice);
+			 //play song
+			 if (choice == "p" || choice == "P")
+			 {
+				 ptr->showSong();
+				 ptr = ptr->next;
+			 }
+			 //skip song
+			 if (choice == "s" || choice == "S")
+			 {
+				 cout << "How many?" << endl;
+				 getline(cin, amount);
+				 
+				
+			 }
 	}
 
 }
@@ -207,7 +197,7 @@ int main()
 
 		return 0;
 	}
-	my.getUserInput();
+	my.showList();
 	
 	
 
