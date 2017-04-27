@@ -13,7 +13,6 @@
 //start over from the beginning of the list and again, present each song in turn to Play, Skip, Delete or Quit.
 
 
-
 #include "stdafx.h"
 #include "stdafx.h"
 #include <iostream>
@@ -79,7 +78,6 @@ linkedList::linkedList()
 	tail = NULL;
 }
 
-
 //Deconstructor - free allocated memory
 linkedList::~linkedList()
 {
@@ -92,13 +90,11 @@ linkedList::~linkedList()
 	}
 }
 
-
 //Show song name to console
 void music::showSong()
 {
 	cout << songName << endl;
 }
-
 
 //Traverse, Skip, Delete, Node from list
 void linkedList::showList()
@@ -107,7 +103,6 @@ void linkedList::showList()
 	music* prev = NULL;
 	string choice;
 	int amount;
-
 
 	cout << "**** My Music List **** " << endl;
 	if (head == NULL) //Empty List
@@ -124,7 +119,7 @@ void linkedList::showList()
 	}
 	else
 		head = head->next;
-	
+
 	while (ptr != NULL)
 	{
 		cout << "The song is " << ptr->songName << " by " << ptr->songArtist << " [P]lay, [S]kip,[D]elete, or [Q]uit? ";
@@ -221,7 +216,6 @@ void linkedList::addNodeToEnd(music* newnode)
 	}
 }
 
-
 int linkedList::readList(string filename)
 {
 	string isong, iname;
@@ -231,7 +225,6 @@ int linkedList::readList(string filename)
 		cout << "File could not be opened for reading" << endl;
 		return READERROR;
 	}
-
 
 	while (!infile.eof())
 	{
@@ -253,7 +246,7 @@ int linkedList::readList(string filename)
 
 int main()
 {
-	linkedList my;
+	linkedList musicplay;
 
 	int error;
 	string answer;
@@ -277,7 +270,7 @@ int main()
 
 		return 0;
 	}
-	my.showList();
+	musicplay.showList();
 
 
 	return 0;
