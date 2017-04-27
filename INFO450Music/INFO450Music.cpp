@@ -259,7 +259,7 @@ int main()
 	cout << "Enter the full path of the file: " << endl;
 	getline(cin, filename);
 	ifstream file(filename);
-	error = my.readList(filename);
+	error = musicplay.readList(filename);
 	if (error)
 	{
 		cout << "Cannot read list" << endl;
