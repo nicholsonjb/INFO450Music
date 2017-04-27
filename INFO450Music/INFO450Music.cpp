@@ -1,6 +1,19 @@
 // INFO450Music.cpp : Defines the entry point for the console application.
 //
 
+//Author: James Nicholson
+//Spring 2017
+//Purpose: Creating an application that reads a music play list from a file.
+//Once read, the program will present each song in order.
+//As each song is presented, the user has the option to Play, Skip or Delete from the play list.
+//The program should require the user to enter a full path filename of an existing playlist text file.
+//All the entries  in the file should be read.
+//The program should continue to present the next song until the user decides to Quit.
+//If the end of the music list is reached, the program should 
+//start over from the beginning of the list and again, present each song in turn to Play, Skip, Delete or Quit.
+
+
+
 #include "stdafx.h"
 #include "stdafx.h"
 #include <iostream>
