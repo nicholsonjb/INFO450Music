@@ -102,22 +102,19 @@ void linkedList::showList()
 	cout << "**** My Music List **** " << endl;
 	if (head == NULL)
 	{
+		cout << "List is empty!" << endl;
 		return;
 	}
 
-	if (head->songName == choice)
+	//If only 1 node in the list
+	if (head == tail)
 	{
-		//if only 1 node in the list
-		if (head == tail)
-		{
-			head = NULL;
-			tail = NULL;
-		}
-		else
-			head = head->next;
-		delete ptr;
-		return;
+		head = NULL;
+		tail = NULL;
 	}
+	else
+		head = head->next;
+	
 	while (ptr != NULL)
 	{
 		cout << "The song is " << ptr->songName << " by " << ptr->songArtist << " [P]lay, [S]kip,[D]elete, or [Q]uit? ";
@@ -138,7 +135,7 @@ void linkedList::showList()
 				ptr = ptr->next;
 			}
 		}
-		//skip song on list
+		//Skip song on list
 		if (choice == "s" || choice == "S")
 		{
 			cout << "How many?" << endl;
@@ -167,9 +164,9 @@ void linkedList::showList()
 		//Delete song from list
 		if (choice == "D" || choice == "d")
 		{
-	
+			
 
-			if (ptr->next && (ptr->next)->songName == amount)
+			if (ptr->next && (ptr->next)->songName == ptr->songName)
 			{
 				if (tail == ptr->next)
 					tail = ptr;
@@ -177,12 +174,12 @@ void linkedList::showList()
 				music* tbd = ptr->next;
 				ptr->next = (ptr->next)->next;
 				delete tbd;
-				return;
 			}
 			cout << "---------\n";
 			cout << "Deleting: ";
 			ptr->showSong();
 			cout << "---------\n";
+
 			if (ptr == tail)
 			{
 				ptr = head;
