@@ -13,7 +13,7 @@ const int WRITEERROR = 200;
 const int ARRAYSIZE = 100;
 
 
-//music class
+//Music class
 class music
 {
 	string songName;
@@ -28,7 +28,7 @@ public:
 	friend class linkedList;
 };
 
-//class linked list
+//Class linked list
 class linkedList
 {
 	int numrecords;
@@ -42,7 +42,7 @@ public:
 	void addNodeToEnd(music* newnode);
 };
 
-//default constructor - initalized empty
+//Default constructor - initalized empty
 music::music()
 {
 	songName = "";
@@ -50,7 +50,7 @@ music::music()
 	next = NULL;
 }
 
-//overload constructor initlized w/values
+//Overload constructor initlized w/values
 music::music(string song, string art)
 {
 	songName = song;
@@ -67,7 +67,7 @@ linkedList::linkedList()
 }
 
 
-//deconstructor - free allocated memory
+//Deconstructor - free allocated memory
 linkedList::~linkedList()
 {
 	music* ptr = head;
@@ -80,27 +80,24 @@ linkedList::~linkedList()
 }
 
 
-//Show song to console that is playing
+//Show song name to console
 void music::showSong()
 {
 	cout << songName << endl;
 }
 
 
-//Traverse/Show/PlaySong to console
+//Traverse, Skip, Delete, Node from list
 void linkedList::showList()
 {
 	music* ptr = head;
 	music* prev = NULL;
-	
-
 	string choice;
-
 	int amount;
-	
+
 
 	cout << "**** My Music List **** " << endl;
-	if (head == NULL)
+	if (head == NULL) //Empty List
 	{
 		cout << "List is empty!" << endl;
 		return;
@@ -164,8 +161,6 @@ void linkedList::showList()
 		//Delete song from list
 		if (choice == "D" || choice == "d")
 		{
-			
-
 			if (ptr->next && (ptr->next)->songName == ptr->songName)
 			{
 				if (tail == ptr->next)
@@ -195,82 +190,82 @@ void linkedList::showList()
 		{
 			cout << "Thanks for listening! " << endl;
 			break;
-
 		}
 	}
 }
-	void linkedList::addNodeToEnd(music* newnode)
+
+void linkedList::addNodeToEnd(music* newnode)
+{
+	if (head == NULL)
 	{
-		if (head == NULL)
-		{
-			head = newnode;
-			tail = newnode;
-		}
-		else
-		{
-			tail->next = newnode;
-			tail = newnode;
-		}
+		head = newnode;
+		tail = newnode;
+	}
+	else
+	{
+		tail->next = newnode;
+		tail = newnode;
+	}
+}
+
+
+int linkedList::readList(string filename)
+{
+	string isong, iname;
+	ifstream infile(filename, ios::in);
+	if (!infile)
+	{
+		cout << "File could not be opened for reading" << endl;
+		return READERROR;
 	}
 
 
-	int linkedList::readList(string filename)
+	while (!infile.eof())
 	{
-		string isong, iname;
-		ifstream infile(filename, ios::in);
-		if (!infile)
+		getline(infile, iname, '|');
+		if (!iname.empty())
 		{
-			cout << "File could not be opened for reading" << endl;
-			return READERROR;
+			getline(infile, isong);
+
+			music* newnode = new music(isong, iname);
+			addNodeToEnd(newnode);
+
+			numrecords++;
 		}
-
-
-		while (!infile.eof())
-		{
-			getline(infile, iname, '|');
-			if (!iname.empty())
-			{
-				getline(infile, isong);
-
-				music* newnode = new music(isong, iname);
-				addNodeToEnd(newnode);
-
-				numrecords++;
-			}
-		}
-
-		infile.close();
-		return 0;
 	}
 
-	int main()
+	infile.close();
+	return 0;
+}
+
+int main()
+{
+	linkedList my;
+
+	int error;
+	string answer;
+	string filename;
+
+	cout << "Welcome to  Music Player!" << endl;
+	cout << "To access the list text file. Use the file path where the text file" << endl;
+	cout << "is stored on your machine. Ex. C:\\Projects\\MyMusic.txt" << endl;
+
+	cout << "Enter the full path of the file: " << endl;
+	getline(cin, filename);
+	ifstream file(filename);
+	error = my.readList(filename);
+	if (error)
 	{
-		linkedList my;
-
-		int error;
-		string answer;
-		string filename;
-
-		cout << "Welcome to  Music Player!" << endl;
-		cout << "To access the list text file. Use the file path where the text file" << endl;
-		cout << "is stored on your machine. Ex. C:\\Projects\\MyMusic.txt" << endl;
-
-		cout << "Enter the full path of the file: " << endl;
-		getline(cin, filename);
-		ifstream file(filename);
-		error = my.readList(filename);
-		if (error)
-		{
-			cout << "Cannot read list" << endl;
-			cout << "Possible issues:" << endl;
-			cout << "1. Incorrect file name" << endl;
-			cout << "2. File does not exist " << endl;
-			cout << "3. Incorrect file path" << endl;
-
-			return 0;
-		}
-		my.showList();
-
+		cout << "Cannot read list" << endl;
+		cout << "Possible issues:" << endl;
+		cout << "1. Incorrect file name" << endl;
+		cout << "2. File does not exist " << endl;
+		cout << "3. Incorrect file path" << endl;
 
 		return 0;
 	}
+	my.showList();
+
+
+	return 0;
+}
